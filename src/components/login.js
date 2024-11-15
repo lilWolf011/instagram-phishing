@@ -14,13 +14,15 @@ export default function LoginPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [error, setError] = useState(null);
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-    setLoginCounter(prevCount => prevCount + 1);
-
-    // Örnek login işlemi (API çağrısı)
+  
+    // Login deneme sayısını artır
+    setLoginCounter((prevCount) => prevCount + 1);
+  
+    // API çağrısı
     const response = await fetch('/api/login', {
       method: 'POST',
       body: JSON.stringify({
@@ -29,22 +31,24 @@ export default function LoginPage() {
       }),
       headers: { 'Content-Type': 'application/json' },
     });
-
+  
     if (response.status === 200) {
-      // Giriş başarılı, kullanıcıyı 'next' parametresine yönlendir
+      // Giriş başarılı, 'next' parametresine yönlendir
       const nextUrl = searchParams.get("next");
       router.push(nextUrl ? nextUrl : "/");
-      //router.push(nextParam);
     } else {
-      // Giriş başarısız
-      if (loginCounter >= 3) {
+      // Giriş başarısız, 3'ten fazla deneme varsa 'next' parametresine yönlendir
+      if (loginCounter + 1 > 3) { // +1, state'in henüz güncellenmediği durumu kapsar
         const nextUrl = searchParams.get("next");
         router.push(nextUrl ? nextUrl : "/");
+      } else {
+        // Hata mesajını göster
+        setError(
+          'Üzgünüz, şifren yanlıştı. Lütfen şifreni dikkatlice kontrol et.'
+        );
       }
-      setError('Üzgünüz, şifren yanlıştı. Lütfen şifreni dikkatlice kontrol et.');
     }
   };
-
 
   const [usernameValue, setUsernameValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
