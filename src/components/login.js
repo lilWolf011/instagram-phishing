@@ -15,12 +15,12 @@ export default function LoginPage() {
   const searchParams = useSearchParams();
   const [error, setError] = useState(null);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError(null);
-    setLoginCounter(prevCount => prevCount + 1);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setError(null);
+  setLoginCounter((prevCount) => prevCount + 1);
 
-    // Örnek login işlemi (API çağrısı)
+  try {
     const response = await fetch('/api/login', {
       method: 'POST',
       body: JSON.stringify({
@@ -30,21 +30,23 @@ export default function LoginPage() {
       headers: { 'Content-Type': 'application/json' },
     });
 
-    if (response.status === 200) {
-      // Giriş başarılı, kullanıcıyı 'next' parametresine yönlendir
-      const nextUrl = searchParams.get("next");
-      router.push(nextUrl ? nextUrl : "/");
-      //router.push(nextParam);
+    if (response.ok) {
+      // Giriş başarılı, yönlendir
+      const nextUrl = searchParams?.get("next") || "/";
+      router.push(nextUrl);
     } else {
-      // Giriş başarısız
-      console.log(loginCounter)
+      // Hatalı giriş
       if (loginCounter >= 3) {
-        const nextUrl = searchParams.get("next");
-        router.push(nextUrl ? nextUrl : "/");
+        const nextUrl = searchParams?.get("next") || "/";
+        router.push(nextUrl);
       }
       setError('Üzgünüz, şifren yanlıştı. Lütfen şifreni dikkatlice kontrol et.');
     }
-  };
+  } catch (err) {
+    console.error("Giriş işlemi sırasında hata oluştu:", err);
+    setError("Bir hata oluştu. Lütfen daha sonra tekrar deneyin.");
+  }
+};
 
   const [usernameValue, setUsernameValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
