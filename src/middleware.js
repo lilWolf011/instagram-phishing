@@ -20,6 +20,8 @@ export default function middleware(request) {
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|api/login).*)'], // API login hariç tutuldu
+  matcher: [
+    '/((?!_next/static|_next/image|favicon.ico|api/login|.*\\.(png|jpg|jpeg|gif|svg|ico|webp)).*)',
+  ],
 };
 
