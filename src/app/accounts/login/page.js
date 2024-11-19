@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000); // 2 saniye sonra loading ekranı kaybolur
+    }, 1500);
     return () => clearTimeout(timer);
   }, []);
 
