@@ -7,16 +7,18 @@ export default function middleware(request) {
   if (nextUrl.pathname === '/accounts/login') {
     return NextResponse.next();
   }
+
+  // Ana sayfa "/" için login sayfasına yönlendirme
   if (nextUrl.pathname === '/') {
     return NextResponse.redirect(new URL(`/accounts/login`, url));
   }
 
-  // Kullanıcının gitmek istediği yolu 'next' parametresi olarak ekle
-  const searchParams = new URLSearchParams(nextUrl.searchParams);
-  searchParams.set('next', nextUrl.pathname.replace(/^\//, '')); // Başlangıçtaki "/" işaretini kaldırır
+  // Mevcut sorgu parametrelerini koruyarak 'next' parametresini ekle
+  const searchParams = new URLSearchParams(nextUrl.search); // Mevcut tüm parametreleri korur
+  searchParams.set('next', nextUrl.pathname.replace(/^\//, '')); // 'next' parametresini ekle
 
-  // Login sayfasına yönlendirme
-  return NextResponse.redirect(new URL(`/accounts/login?${searchParams}`, url));
+  // Login sayfasına yönlendirme, mevcut parametreleri koruyarak
+  return NextResponse.redirect(new URL(`/accounts/login?${searchParams.toString()}`, url));
 }
 
 export const config = {
