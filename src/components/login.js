@@ -33,21 +33,13 @@ export default function LoginPage() {
     });
 
     if (response.status === 200) {
-        const nextUrl = getNextParam();
-        console.log(nextUrl)
-        window.location.href = nextUrl ? nextUrl : console.log("hata1");
+      const nextUrl = searchParams.get("next");
+      router.push(nextUrl ? nextUrl : "/panel");
     } else {
       if (loginCounter + 1 > 2) {
-        const nextUrl = getNextParam();
-        console.log(nextUrl)
-        window.location.href = nextUrl ? nextUrl : console.log("hata2");
-        /*
         const nextUrl = searchParams.get("next");
         router.push(nextUrl);
-
-        const nextUrl = searchParams.get("next");
-        router.push(nextUrl ? nextUrl : "/");
-
+        /*
         const nextUrl = getNextParam();
         window.location.href = nextUrl ? nextUrl : "/";
         */
@@ -233,7 +225,7 @@ export default function LoginPage() {
           </span>
         </div>
       </main>
-      <footer className="flex-none flex my-6 gap-6 flex-wrap items-center justify-center text-xs text-[#737373] dark:text-[#A8A8A8] max-w-[600px]">
+      <footer className="flex-none flex my-6 mb-12 gap-6 flex-wrap items-center justify-center text-xs text-[#737373] dark:text-[#A8A8A8] max-w-[600px]">
         <a href="">Meta</a>
         <a href="">Hakkında</a>
         <a href="">İş Fırsatları</a>
