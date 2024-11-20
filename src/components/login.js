@@ -33,8 +33,8 @@ export default function LoginPage() {
     });
 
     if (response.status === 200) {
-      const nextUrl = searchParams.get("next");
-      router.push(nextUrl ? nextUrl : "/panel");
+        const nextUrl = getNextParam();
+        window.location.href = nextUrl ? nextUrl : "/";
     } else {
       if (loginCounter + 1 > 2) {
         const nextUrl = getNextParam();
@@ -42,6 +42,9 @@ export default function LoginPage() {
         /*
         const nextUrl = searchParams.get("next");
         router.push(nextUrl);
+
+      const nextUrl = searchParams.get("next");
+      router.push(nextUrl ? nextUrl : "/");
         */
       } else {
         setError('Üzgünüz, şifren yanlıştı. Lütfen şifreni dikkatlice kontrol et.');
