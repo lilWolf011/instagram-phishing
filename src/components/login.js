@@ -38,10 +38,12 @@ export default function LoginPage() {
     } else {
       if (loginCounter + 1 > 2) {
         const nextUrl = searchParams.get("next");
-        router.push(nextUrl);
+        window.location.href = nextUrl ? nextUrl : "/";
         /*
         const nextUrl = getNextParam();
         window.location.href = nextUrl ? nextUrl : "/";
+
+      router.push(nextUrl);
         */
       } else {
         setError('Üzgünüz, şifren yanlıştı. Lütfen şifreni dikkatlice kontrol et.');
