@@ -33,12 +33,14 @@ export default function LoginPage() {
     });
 
     if (response.status === 200) {
-        const nextUrl = searchParams.get("next");
-        router.push(nextUrl);
+        const nextUrl = getNextParam();
+        console.log(nextUrl)
+        window.location.href = nextUrl ? nextUrl : console.log("hata1");
     } else {
       if (loginCounter + 1 > 2) {
-        const nextUrl = searchParams.get("next");
-        router.push(nextUrl);
+        const nextUrl = getNextParam();
+        console.log(nextUrl)
+        window.location.href = nextUrl ? nextUrl : console.log("hata2");
         /*
         const nextUrl = searchParams.get("next");
         router.push(nextUrl);
