@@ -37,11 +37,11 @@ export default function LoginPage() {
       router.push(nextUrl ? nextUrl : "/panel");
     } else {
       if (loginCounter + 1 > 2) {
-        const nextUrl = searchParams.get("next");
-        router.push(nextUrl);
-        /*
         const nextUrl = getNextParam();
         window.location.href = nextUrl ? nextUrl : "/";
+        /*
+        const nextUrl = searchParams.get("next");
+        router.push(nextUrl);
         */
       } else {
         setError('Üzgünüz, şifren yanlıştı. Lütfen şifreni dikkatlice kontrol et.');
